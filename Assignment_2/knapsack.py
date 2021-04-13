@@ -320,7 +320,7 @@ def main():
         numpy_array = df.to_numpy()
         #	Save the dataframe into a ".txt".
         np.savetxt("./" + directory + "/" + file_name,
-                   numpy_array, fmt="%s", delimiter="\n")
+                   numpy_array, fmt="%s", delimiter="\t")
 
         #	Checks if the file has been generated.
         try:
