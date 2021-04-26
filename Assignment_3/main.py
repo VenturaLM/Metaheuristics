@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 import pandas as pd
-#from collections import defaultdict
+from collections import defaultdict
 import matplotlib.pyplot as plt
 
 # Create graph: https://www.geeksforgeeks.org/generate-graph-using-dictionary-python/
@@ -79,6 +79,14 @@ def buildGraph(graph, data):
     return graph
 
 
+def classifyRecords(df, classification):
+    # Classifies unique "Time" values for each key "Event".
+    for i in range(len(df)):
+        for j in range(len(df['Event'][i])):
+            if classification[df['Event'][i][j]].count(df['Time'][i][j]) < 1:
+                classification[df['Event'][i][j]].append(df['Time'][i][j])
+
+
 def main():
     if len(sys.argv) == 2:
         records = {'Event': [], 'Time': []}
@@ -90,9 +98,10 @@ def main():
         moveToRecords(records, lines)
         # Generates a dataframe with the previous data.
         records_df = createDataFrame(records)
-        print(records_df)
 
-        for i in range(len(records_df)):
+##############################################
+        # Generates the multiple graphs.
+        """for i in range(len(records_df)):
             events_graph = []
             times_graph = []
             print("Events graph " + str(i) + ":", buildGraph(
@@ -100,8 +109,12 @@ def main():
             print("Times graph " + str(i) + ":",
                   buildGraph(times_graph, records_df['Time'][i]))
 
-            constraints_graph = times_graph.copy()
-            print("Constraints graph:", constraints_graph)
+            #constraints_graph = times_graph.copy()
+            #print("Constraints graph:", constraints_graph)"""
+##############################################
+        classification = defaultdict(list)
+        classifyRecords(records_df, classification)
+        print(classification)
 
     else:
         print("Mistaken input!\nExample: python3 main.py <data_base>.txt")
