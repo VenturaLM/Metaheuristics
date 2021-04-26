@@ -76,8 +76,6 @@ def buildGraph(graph, data):
             # Adds the (n - 2) pair of nodes.
             addEdge(graph, data[i], data[i + 1])
 
-    return graph
-
 
 def classifyRecords(df, classification):
     # Classifies unique "Time" values for each key "Event".
@@ -91,6 +89,7 @@ def main():
     if len(sys.argv) == 2:
         records = {'Event': [], 'Time': []}
         lines = []
+        classification = defaultdict(list)
 
         # Gets the data into "lines".
         importFromTXTFile(sys.argv[1], lines)
@@ -101,20 +100,22 @@ def main():
 
 ##############################################
         # Generates the multiple graphs.
-        """for i in range(len(records_df)):
+        for i in range(len(records_df)):
             events_graph = []
             times_graph = []
-            print("Events graph " + str(i) + ":", buildGraph(
-                events_graph, records_df['Event'][i]))
-            print("Times graph " + str(i) + ":",
-                  buildGraph(times_graph, records_df['Time'][i]))
+
+            buildGraph(events_graph, records_df['Event'][i])
+            buildGraph(times_graph, records_df['Time'][i])
+
+            print("Events graph " + str(i) + ":", events_graph)
+            print("Times graph " + str(i) + ":", times_graph)
 
             #constraints_graph = times_graph.copy()
-            #print("Constraints graph:", constraints_graph)"""
-##############################################
-        classification = defaultdict(list)
-        classifyRecords(records_df, classification)
+            #print("Constraints graph:", constraints_graph)
+
+            classifyRecords(records_df, classification)
         print(classification)
+##############################################
 
     else:
         print("Mistaken input!\nExample: python3 main.py <data_base>.txt")
