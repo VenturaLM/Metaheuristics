@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 import pandas as pd
-from collections import defaultdict
+#from collections import defaultdict
 import matplotlib.pyplot as plt
 
 # Create graph: https://www.geeksforgeeks.org/generate-graph-using-dictionary-python/
@@ -45,12 +45,12 @@ def createDataFrame(data):
     df = pd.DataFrame(data, columns=['Event', 'Time'])
     # Change the context from "DataFrame" to "Numpy structure".
     # numpy_array = df.to_numpy()
-    print(df)
+    return df
 
 
 def addEdge(graph, u, v):
     # Adds an edge to a graph.
-    graph[u].append(v)
+    graph.append([u, v])
 
 
 def generateEdges(graph):
@@ -68,39 +68,40 @@ def generateEdges(graph):
 def buildGraph(graph, data):
     # Builds a graph.
     for i in range(len(data)):
-        for j in range(len(data[i])):
-            if j + 1 == len(data[i]) - 1:
-                # Adds the last pair of nodes (n - 1).
-                addEdge(graph, data[i]
-                        [-2], data[i][-1])
-                break
-            else:
-                # Adds the (n - 2) pair of nodes.
-                addEdge(graph, data[i][j],
-                        data[i][j + 1])
-    return generateEdges(graph)
+        if i + 1 == len(data) - 1:
+            # Adds the last pair of nodes (n - 1).
+            addEdge(graph, data[-2], data[i][-1])
+            break
+        else:
+            # Adds the (n - 2) pair of nodes.
+            addEdge(graph, data[i], data[i + 1])
+
+    return graph
 
 
 def main():
     if len(sys.argv) == 2:
         records = {'Event': [], 'Time': []}
         lines = []
-        # Clave - valor,: por ejemplo, a esta conectado con b y c en la impresion del defaultdict; eso no pasa con los numeros.
-        eventsGraph = defaultdict(list)
-        timesGraph = defaultdict(list)
 
         # Gets the data into "lines".
         importFromTXTFile(sys.argv[1], lines)
         # Splits among "Events" and "Times" and stores it in "records" dictionary.
         moveToRecords(records, lines)
         # Generates a dataframe with the previous data.
-        createDataFrame(records)
+        records_df = createDataFrame(records)
+        print(records_df)
 
-        #e = buildGraph(eventsGraph, records['Event'])
-        #t = buildGraph(timesGraph, records['Time'])
+        for i in range(len(records_df)):
+            events_graph = []
+            times_graph = []
+            print("Events graph " + str(i) + ":", buildGraph(
+                events_graph, records_df['Event'][i]))
+            print("Times graph " + str(i) + ":",
+                  buildGraph(times_graph, records_df['Time'][i]))
 
-        #print("Events graph:", e)
-        #print("Times graph:", t)
+            constraints_graph = times_graph.copy()
+            print("Constraints graph:", constraints_graph)
 
     else:
         print("Mistaken input!\nExample: python3 main.py <data_base>.txt")
