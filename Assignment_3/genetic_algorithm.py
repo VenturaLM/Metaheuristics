@@ -2,18 +2,6 @@ import random
 import copy
 
 
-def mutation_1(constraint, largest_record_length):
-    # Adds a new random event to the current constraint if the length of the current constraint is smaller than the maximum one on the data base.
-    events = ['A', 'B', 'C', 'D', 'E']
-
-    if len(constraint) < largest_record_length:
-        keys = list(constraint.keys())
-        values = list(constraint.values())
-        # contraint[last_event + new_random_event].append([last_time, random_time(last_time, last_time + 10)])
-        constraint[keys[-1][-1] + events[random.randint(0, 4)]].append([values[-1][0][1], random.randint(int(
-            values[-1][0][1]), int(values[-1][0][1]) + 5)])
-
-
 def sortPopulationByProfit(p):
     #	Sorting handling function.
     return p[1]
@@ -77,7 +65,8 @@ def applyGeneticOperator(nConstraints, mProb, largest_record_length, elite):
         #			Example:
         #			{'AB': [['1', '3']], 'BA': [['3', '4']]} --> {'BA': [['3', '4']], 'AA': [['1', '3']]}
         if random.randint(1, 100) <= mProb * 100:
-            parents = mutateParents(parents)
+            parents = mutateParentsGene(parents)
+            parents = mutateParentsAddGene(parents, largest_record_length)
 
         for i in range(len(parents)):
             new_nConstraints.append(parents[i])
@@ -85,13 +74,31 @@ def applyGeneticOperator(nConstraints, mProb, largest_record_length, elite):
     return new_nConstraints
 
 
-def mutateParents(parents):
-    # Mutate a random event from each parent.
-    # NOTE: It is very important to use copy.deepcopy(). Somehow, data direction would be corrupted.
+def mutateParentsAddGene(parents, largest_record_length):
+    # Adds a new random event to the current constraint if the length of the current constraint is smaller than the maximum one on the data base.
+    # NOTE: It is very important to use copy.deepcopy(). Somehow, data direction would be corrupted instead.
+    p = copy.deepcopy(parents)
+    events = ['A', 'B', 'C', 'D', 'E']
+
+    for i in p:
+        if len(i) < largest_record_length:
+            keys = list(i.keys())
+            values = list(i.values())
+            # contraint[last_event + new_random_event].append([last_time, random_time(last_time, last_time + 10)])
+            i[keys[-1][-1] + events[random.randint(0, 4)]].append([values[-1][0][1], random.randint(int(
+                values[-1][0][1]), int(values[-1][0][1]) + 5)])
+
+    return p
+
+
+def mutateParentsGene(parents):
+    # Mutate a random event gene from each parent.
+    # NOTE: It is very important to use copy.deepcopy(). Somehow, data direction would be corrupted instead.
     p = copy.deepcopy(parents)
     events = ['A', 'B', 'C', 'D', 'E']
     to_mutate = events[random.randint(0, 4)]
     new_mutation = to_mutate
+
     while new_mutation == to_mutate:
         new_mutation = events[random.randint(0, 4)]
 
