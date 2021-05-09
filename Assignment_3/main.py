@@ -1,5 +1,6 @@
 import sys
 import pandas as pd
+import numpy as np
 import time
 
 import genetic_algorithm
@@ -15,15 +16,27 @@ def main():
         lines = []
         nConstraints = []
 
+    #########################################################################
+    #                               PARAMETERS                              #
+    #########################################################################
         # Population size [20 - 50].
         #   NOTE: Even number.
-        nSolutions = 50
+        nSolutions = 10
         if nSolutions % 2 != 0:
             nSolutions += 1
+
+        # Number of generations [5 - 20].
+        maxGenerations = 3
 
         # Mutation probability.
         #   Note: In order to avoid randomness -->  [mProb <= 0.2].
         mProb = 1
+
+        # Capability of the elite.
+        elite_threshold = nSolutions
+        if elite_threshold > 5:
+            elite_threshold = 5
+    #########################################################################
 
         # Gets the data into "lines".
         data_management.importFromTXTFile(sys.argv[1], lines)
@@ -45,9 +58,6 @@ def main():
         elite = []
         # Population will store --> [Indexes of solution / % of satisfaction / Graph]
         population = []
-        elite_threshold = nSolutions
-        if elite_threshold > 5:
-            elite_threshold = 5
 
         dictionary = {'Elite': [], 'Profit': [], 'Graph': []}
 
@@ -64,9 +74,6 @@ def main():
         # Selects the best parents of the very first population and saves them into elite.
         elite = genetic_algorithm.selectElite(
             population, elite, elite_threshold).copy()
-
-        # Number of generations [5 - 20].
-        maxGenerations = 5
 
         iterations = 1
         while iterations <= maxGenerations:
@@ -100,7 +107,11 @@ def main():
         elite_df = pd.DataFrame(dictionary, columns=[
                                 'Elite', 'Profit', 'Graph'])
 
-        #elite_df.to_excel("test.xlsx", index=False, header=True)
+    #########################################################################
+    #             UNCOMMENT THE NEXT LINE TO EXPORT TO EXCEL                #
+    #########################################################################
+        # elite_df.to_excel("test.xlsx", index=False, header=True)
+    #########################################################################
         print("")
         print(elite_df)
 
