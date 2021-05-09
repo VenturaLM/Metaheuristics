@@ -63,13 +63,13 @@ def plotSolutions(graph):
     pos = nx.spring_layout(G)
 
     # Nodes.
-    nx.draw_networkx_nodes(G, pos, node_size=700)
+    nx.draw_networkx_nodes(G, pos, node_size=250)
 
     # Edges.
-    nx.draw_networkx_edges(G, pos, edgelist=edge_list, width=6)
+    nx.draw_networkx_edges(G, pos, edgelist=edge_list, width=1)
 
     # Labels.
-    nx.draw_networkx_labels(G, pos, font_size=20,
+    nx.draw_networkx_labels(G, pos, font_size=12,
                             font_family="sans-serif")
     nx.draw_networkx_edge_labels(
         G, pos, verticalalignment="top", edge_labels=labels, font_size=10, font_family="sans-serif")
