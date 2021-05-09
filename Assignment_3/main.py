@@ -115,6 +115,8 @@ def main():
         print("")
         print(elite_df)
 
+        graph.plotSolutions(dictionary['Graph'][0])
+
         print("\n%s seconds" % seconds)
 
     else:

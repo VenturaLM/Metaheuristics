@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from collections import defaultdict
+import networkx as nx
 import random
 import numpy as np
 
@@ -43,15 +44,24 @@ def obtainConstraints(df, nConstraints, nSolutions):
         iterations += 1
 
 
-def plotSolutions():
-    x = np.linspace(0, 2, 100)
+def plotSolutions(graph):
+    keys = list(graph.keys())
+    print(keys)
 
-    plt.plot(x, x, label='linear')
-    plt.plot(x, x**2, label='quadratic')
-    plt.plot(x, x**3, label='cubic')
-    plt.xlabel('x label')
-    plt.ylabel('y label')
-    plt.title("Simple Plot")
-    plt.legend()
+    G = nx.Graph()
 
+    for i in keys:
+        G.add_edge(i[0], i[1])
+
+    # Position for all nodes.
+    pos = nx.spring_layout(G)
+
+    # Nodes.
+    nx.draw_networkx_nodes(G, pos, node_size=700)
+
+    # Labels.
+    nx.draw_networkx_labels(G, pos, font_size=20, font_family="sans-serif")
+
+    plt.axis("off")
+    nx.draw(G)
     plt.show()
