@@ -1,5 +1,4 @@
 import sys
-import copy
 import pandas as pd
 import time
 
@@ -102,6 +101,7 @@ def main():
                                 'Elite', 'Profit', 'Graph'])
 
         #elite_df.to_excel("test.xlsx", index=False, header=True)
+        print("")
         print(elite_df)
 
         print("\n%s seconds" % seconds)
