@@ -21,11 +21,11 @@ def main():
     #########################################################################
         # Population size [20 - 50].
         #   NOTE: Even number.
-        nSolutions = 10
+        nSolutions = 30
         if nSolutions % 2 != 0:
             nSolutions += 1
 
-        # Number of generations [5 - 20].
+        # Number of generations [2 - 10].
         maxGenerations = 3
 
         # Mutation probability.

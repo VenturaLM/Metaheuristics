@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 from collections import defaultdict
-import networkx as nx
+import networkx as nx  # https://networkx.org/documentation/stable/index.html
 import random
 import numpy as np
 
@@ -46,11 +46,16 @@ def obtainConstraints(df, nConstraints, nSolutions):
 
 def plotSolutions(graph):
     keys = list(graph.keys())
+    values = list(graph.values())
 
     G = nx.Graph()
+    labels = {}
 
+    j = 0
     for i in keys:
         G.add_edge(i[0], i[1])
+        labels[i[0] + i[1]] = values[j][0]
+        j += 1
 
     edge_list = [(u, v) for (u, v, d) in G.edges(data=True)]
 
@@ -65,6 +70,8 @@ def plotSolutions(graph):
 
     # Labels.
     nx.draw_networkx_labels(G, pos, font_size=20, font_family="sans-serif")
+    nx.draw_networkx_edge_labels(
+        G, pos, verticalalignment="top", edge_labels=labels, font_size=10, font_family="sans-serif")
 
     plt.axis("off")
     plt.show()
