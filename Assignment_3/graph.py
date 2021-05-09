@@ -46,12 +46,13 @@ def obtainConstraints(df, nConstraints, nSolutions):
 
 def plotSolutions(graph):
     keys = list(graph.keys())
-    print(keys)
 
     G = nx.Graph()
 
     for i in keys:
         G.add_edge(i[0], i[1])
+
+    edge_list = [(u, v) for (u, v, d) in G.edges(data=True)]
 
     # Position for all nodes.
     pos = nx.spring_layout(G)
@@ -59,9 +60,11 @@ def plotSolutions(graph):
     # Nodes.
     nx.draw_networkx_nodes(G, pos, node_size=700)
 
+    # Edges.
+    nx.draw_networkx_edges(G, pos, edgelist=edge_list, width=6)
+
     # Labels.
     nx.draw_networkx_labels(G, pos, font_size=20, font_family="sans-serif")
 
     plt.axis("off")
-    nx.draw(G)
     plt.show()
