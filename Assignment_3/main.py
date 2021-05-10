@@ -43,6 +43,8 @@ def main():
 
         # Generates a dataframe with the previous data.
         records_df = data_management.createDataFrame(records)
+        print(records_df)
+        print("\n")
 
         # Gets the length of the largest record. This will be used later in mutation.
         largest_record_length = data_management.getLargestRecords(
