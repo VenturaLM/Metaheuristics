@@ -21,7 +21,7 @@ def evaluateGraph(df, constraint):
                     if (int(c[df['Event'][i][j] + df['Event'][i][j + 1]][0][0]) <= int(df['Time'][i][j])) and (int(c[df['Event'][i][j] + df['Event'][i][j + 1]][0][1]) >= int(df['Time'][i][j + 1])):
                         counter += 1
 
-        if counter == target:
+        if counter >= 1 and counter <= target:
             successful_records_indexes.append(i)
 
     return successful_records_indexes

@@ -21,16 +21,16 @@ def main():
     #########################################################################
         # Population size [20 - 50].
         #   NOTE: Even number.
-        nSolutions = 100
+        nSolutions = 50
         if nSolutions % 2 != 0:
             nSolutions += 1
 
         # Number of generations [2 - 10].
-        maxGenerations = 3
+        maxGenerations = 2
 
         # Mutation probability.
         #   Note: In order to avoid randomness -->  [mProb <= 0.2].
-        mProb = 1
+        mProb = 0.2
 
         # Capability of the elite.
         elite_threshold = nSolutions
@@ -69,7 +69,7 @@ def main():
             if s != []:
                 # Appends into population --> indexes of the records that satisfy the constraints and the satisfaction percentage of the total elements.
                 population.append(
-                    [s, str(len(s)) + "/" + str(len(records_df['Event'])), constraint_1])
+                    [s, len(s)/len(records_df['Event']), constraint_1])
 
         # Selects the best parents of the very first population and saves them into elite.
         elite = genetic_algorithm.selectElite(
@@ -85,7 +85,7 @@ def main():
                 s = graph.evaluateGraph(records_df, constraint_2)
                 if s != []:
                     population.append(
-                        [s, str(len(s)) + "/" + str(len(records_df['Event'])), constraint_2])
+                        [s, len(s)/len(records_df['Event']), constraint_2])
 
             # Selects the best parents and saves them into elite.
             elite = genetic_algorithm.selectElite(
@@ -116,6 +116,7 @@ def main():
         print(elite_df)
 
         graph.plotSolutions(dictionary['Graph'][0])
+        graph.plotSolutions(dictionary['Graph'][1])
 
         print("\n%s seconds" % seconds)
 
