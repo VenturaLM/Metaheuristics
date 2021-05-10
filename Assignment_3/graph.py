@@ -44,7 +44,7 @@ def obtainConstraints(df, nConstraints, nSolutions):
         iterations += 1
 
 
-def plotSolutions(graph, graph_number):
+def plotSolutions(graph, graph_number, profit):
     keys = list(graph.keys())
     values = list(graph.values())
 
@@ -74,7 +74,7 @@ def plotSolutions(graph, graph_number):
     nx.draw_networkx_edge_labels(
         G, pos, verticalalignment="top", edge_labels=labels, font_size=10, font_family="sans-serif")
 
-    plt.title("Solution " + str(graph_number))
+    plt.title("Solution " + str(graph_number) + " - Profit = " + str(profit))
 
     plt.axis("off")
     plt.show()

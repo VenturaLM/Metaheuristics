@@ -26,7 +26,7 @@ def main():
             nSolutions += 1
 
         # Number of generations [2 - 10].
-        maxGenerations = 2
+        maxGenerations = 3
 
         # Mutation probability.
         #   Note: In order to avoid randomness -->  [mProb <= 0.2].
@@ -116,7 +116,8 @@ def main():
         print(elite_df)
 
         for i in range(len(elite)):
-            graph.plotSolutions(dictionary['Graph'][i], i + 1)
+            graph.plotSolutions(
+                dictionary['Graph'][i], i + 1, dictionary['Profit'][i])
 
         print("\n%s seconds" % seconds)
 
