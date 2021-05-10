@@ -1,13 +1,10 @@
 import sys
 import pandas as pd
-import numpy as np
 import time
 
 import genetic_algorithm
 import graph
 import data_management
-
-# Network graphs: https://www.youtube.com/watch?v=9aZiwuQTo-4
 
 
 def main():
