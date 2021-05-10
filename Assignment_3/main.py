@@ -115,8 +115,8 @@ def main():
         print("")
         print(elite_df)
 
-        graph.plotSolutions(dictionary['Graph'][0])
-        graph.plotSolutions(dictionary['Graph'][1])
+        for i in range(len(elite)):
+            graph.plotSolutions(dictionary['Graph'][i])
 
         print("\n%s seconds" % seconds)
 
