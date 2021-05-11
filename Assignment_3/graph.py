@@ -58,7 +58,6 @@ def plotSolutions(graph, graph_number, profit):
         j += 1
 
     edge_list = [(u, v) for (u, v, d) in G.edges(data=True)]
-    n_nodes = len(edge_list) + 1
 
     # Position for all nodes.
     pos = nx.spring_layout(G)
@@ -75,7 +74,8 @@ def plotSolutions(graph, graph_number, profit):
     nx.draw_networkx_edge_labels(
         G, pos, verticalalignment="top", edge_labels=labels, font_size=10, font_family="sans-serif")
 
-    if n_nodes < 4:  # Constraint in assignment statement.
+    # Constraint in assignment statement.
+    if G.number_of_nodes() < 4 or G.number_of_edges() < 3:
         plt.title("Solution " + str(graph_number) +
                   " - Profit = " + str(profit) + " (INVALID)")
     else:

@@ -43,8 +43,8 @@ def main():
 
         # Generates a dataframe with the previous data.
         records_df = data_management.createDataFrame(records)
-        print(records_df)
-        print("\n")
+        # print(records_df)
+        # print("")
 
         # Gets the length of the largest record. This will be used later in mutation.
         largest_record_length = data_management.getLargestRecords(
@@ -52,7 +52,8 @@ def main():
 
         # Gets a constraint similar to one of the records or generate new one.
         graph.obtainConstraints(records_df, nConstraints, nSolutions)
-        # print("Constraints:", nConstraints)
+        #print("Constraints:", nConstraints[0])
+        # print("")
 
         elite = []
         # Population will store --> [Indexes of solution / % of satisfaction / Graph]
