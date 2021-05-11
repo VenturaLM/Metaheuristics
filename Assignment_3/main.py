@@ -18,16 +18,16 @@ def main():
     #########################################################################
         # Population size [10 - 100].
         #   NOTE: Even number.
-        nSolutions = 20
+        nSolutions = 30
         if nSolutions % 2 != 0:
             nSolutions += 1
 
         # Number of generations [2 - 10].
-        maxGenerations = 3
+        maxGenerations = 5
 
         # Mutation probability.
         #   Note: In order to avoid randomness -->  [mProb <= 0.2].
-        mProb = 0.2
+        mProb = 0.5
 
         # Capability of the elite.
         elite_threshold = nSolutions
