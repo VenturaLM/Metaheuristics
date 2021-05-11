@@ -18,7 +18,7 @@ def main():
     #########################################################################
         # Population size [10 - 100].
         #   NOTE: Even number.
-        nSolutions = 30
+        nSolutions = 20
         if nSolutions % 2 != 0:
             nSolutions += 1
 
